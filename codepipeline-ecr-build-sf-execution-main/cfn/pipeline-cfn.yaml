@@ -109,10 +109,11 @@ Resources:
                 - echo "IMAGE_URI=${IMAGE_URI}"
             build:
               commands:
-                - cd container
+                - cd aws-code-pipeline/code-pipeline/container
                 - docker build --tag "$IMAGE_URI" .
             post_build:
               commands:
+                
                 - docker push "$IMAGE_URI"
                 - cd ..
                 - printf '{"commitID":"%s","imageUri":"%s"}' "$TAG" "$IMAGE_URI" > sf_start_params.json
